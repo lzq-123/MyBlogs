@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="admin/_fragment :: head(~{::title})">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-with, initial-scale=1.0">
+    <title>标签</title>
+</head>
+
+<body>
+<!-- 导航 -->
+<nav th:replace="admin/_fragment :: menu(3)" class="ui inverted attached segment my-shadow-small "></nav>
+
+<!--二级导航-->
+<div th:replace="admin/_fragment :: frag" class="ui  attached pointing menu"></div>
+
+<!--中间部分-->
+<div class="my-container my-padded-lr-big my-padded-tb-huge">
+    <div class="ui container">
+
+        <div class="ui success message" th:unless="${#strings.isEmpty(msg)}">
+            <i class="close icon"></i>
+            <div class="header">提示：</div>
+            <p th:text="${msg}">操作成功</p>
+        </div>
+
+        <table class="ui celled table">
+            <thead>
+                <tr>
+                    <th>序列号</th>
+                    <th>名称</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+            <!---->
+                <tr th:each="tag,iterStat : ${page.content}">
+                    <td th:text="${iterStat.count} + 5 * ${page.number}">1</td>
+                    <td th:text="${tag.name}">刻意练习清单</td>
+                    <td>
+                        <a href="#" th:href="@{/admin/tags/update/{id}(id=${tag.id})}" class="ui mini teal basic button" >编辑</a>
+                        <a href="#" th:href="@{/admin/tags/delete/{id}(id=${tag.id})}" class="ui mini red basic button" >删除</a>
+                    </td>
+                </tr>
+            </tbody>
+
+            <!--页脚-->
+            <tfoot>
+                <tr>
+                    <th colspan="6">
+                        <div class="ui pagination menu">
+                            <a href="#" th:href="@{/admin/tags(page=${page.number}-1)}"  class="ui mini teal basic item" th:unless="${page.first}">上一页</a>
+                            <a href="#" th:href="@{/admin/tags(page=${page.number}+1)}" class="ui mini item" th:unless="${page.last}">下一页</a>
+                        </div>
+                        <a href="#" th:href="@{/admin/tags/input}" class="ui right floated mini teal basic button">新增</a>
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<!-- 尾部-->
+<footer th:replace="admin/_fragment :: footer" class="ui inverted vertical segment"></footer>
+
+
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+<script>
+
+    $('.menu.toggle').click(function (){
+        $('.m-item').toggleClass('m-mobile-hide');
+    });
+    $('.ui.dropdown').dropdown({
+      on:'hover'
+    });
+
+    $('.message .close')
+        .on('click', function () {
+            $(this)
+                .closest('.message')
+                .transaction('fade');
+        });
+</script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+spring:
+  thymeleaf:
+    mode: HTML
+  datasource:
+#    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/blog?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: root
+
+#  create:每次重新启动项目都会重新创新表结构，会导致数据丢失
+#
+#  create-drop:每次启动项目创建表结构，关闭项目删除表结构
+#
+#  update:每次启动项目会更新表结构
+#
+#  validate:验证表结构，不对数据库进行任何更改
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+#logging:
+#  level:
+#    root: info
+#    com.lrm: debug
+#  file:
+#    path: log/blog.log
+
+#设置评论的绝对路径
+comment.avatar: /images/logo1.jpg
+manage.avatar: /images/1005.jpg
